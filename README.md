@@ -60,7 +60,7 @@ http {
     include       mime.types;
     default_type  application/octet-stream;
 
-    sendfile        on;
+    sendfile on;
     keepalive_timeout 65;
 
     server {
