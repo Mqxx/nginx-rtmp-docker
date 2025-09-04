@@ -19,6 +19,7 @@ services:
 
     volumes:
       - './data/nginx:/etc/nginx'
+      - './data/stream/hsl:/tmp/stream/hls'
 
     restart: unless-stopped
 ```
@@ -26,21 +27,69 @@ services:
 ## Example Config
 `nginx.conf` Config:
 ```nginx
+user nginx; # Optional
+worker_processes auto; # Optional
+error_log /var/log/nginx/error.log warn; # Optional
+pid /var/run/nginx.pid; # Optional
+
+events {
+    worker_connections 1024;
+}
+
 rtmp_auto_push on;
 
 rtmp {
     server {
         listen 1935;
-        listen [::]:1935 ipv6only=on;    
+        listen [::]:1935 ipv6only=on;
 
         application live {
             live on;
             record off;
+
+            hls on;
+            hls_path /tmp/stream/hls; # Path specified in compose.yml
+            hls_fragment 3s;
+            hls_playlist_length 15s;
+            hls_nested on;
+        }
+    }
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+    keepalive_timeout 65;
+
+    server {
+        listen 8080;
+
+        location /hls {
+            types {
+                application/vnd.apple.mpegurl m3u8;
+                video/mp2t ts;
+            }
+            alias /tmp/stream/hls; # Path specified in compose.yml
+            add_header Cache-Control no-cache;
+        }
+
+        # Optional: Monitoring
+        location /status {
+            stub_status;
+            allow all;
         }
     }
 }
 ```
-URL:
+
+Provide the stream from a source (ex. GoPro RTMP Streaming) to this URL, replace `<streamkey>` with a unique identifier:
 ```
-rtmp://localhost:1935/live
+rtmp://localhost:1935/live/<streamkey>
+```
+
+Access the stream from a browser, replace `<streamkey>` with a unique identifier that matches the stream provider:
+```
+http://localhost:80/hls/<streamkey>.m3u8
 ```
