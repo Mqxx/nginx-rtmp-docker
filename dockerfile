@@ -16,12 +16,12 @@ RUN apk add --no-cache \
 
 RUN adduser -D -g 'nginx' nginx
 
-ENV NGINX_VERSION=1.25.5
-ENV NGINX_RTMP_VERSION=master
+ARG NGINX_VERSION=1.25.5
+ARG NGINX_RTMP_VERSION=master
 
 RUN wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O /tmp/nginx.tar.gz \
     && tar -zxvf /tmp/nginx.tar.gz -C /tmp \
-    && git clone --depth=1 https://github.com/arut/nginx-rtmp-module.git /tmp/nginx-rtmp-module \
+    && git clone --branch ${NGINX_RTMP_VERSION} --depth=1 https://github.com/arut/nginx-rtmp-module.git /tmp/nginx-rtmp-module \
     && cd /tmp/nginx-${NGINX_VERSION} \
     && ./configure \
         --prefix=/etc/nginx \
@@ -47,3 +47,4 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 EXPOSE 80 443 1935
 
 CMD ["nginx", "-g", "daemon off;"]
+
