@@ -27,7 +27,7 @@ jobs:
           
       - name: Create Env Metadata
         run: |
-          echo "REPOSITORY_OWNER=${GITHUB_REPOSITORY@L}" >> "${GITHUB_ENV}"
+          echo "REPOSITORY=${GITHUB_REPOSITORY@L}" >> "${GITHUB_ENV}"
           
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -40,5 +40,5 @@ jobs:
             
           push: true
           tags: |
-            ghcr.io/${{ env.REPOSITORY_OWNER }}/${{ github.event.repository.name }}:latest
-            ghcr.io/${{ env.REPOSITORY_OWNER }}/${{ github.event.repository.name }}:${{ github.sha }}
+            ghcr.io/mqxx/nginx-rtmp:latest
+            ghcr.io/mqxx/nginx-rtmp:${{ github.sha }}
