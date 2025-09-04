@@ -5,7 +5,7 @@ Use with `compose.yml`:
 services:
   nginx-service:
     container_name: 'nginx-service'
-    image: ghcr.io/Mqxx/nginx-rtmp-docker:latest
+    image: ghcr.io/Mqxx/nginx-rtmp:latest
     ports:
       - '80:80' # HTTP
       - '443:443' # HTTPS
