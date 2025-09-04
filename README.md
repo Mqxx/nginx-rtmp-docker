@@ -1,4 +1,4 @@
-# Nginx RTMP Module Docker
+# Nginx RTMP Docker
 
 Use with `compose.yml`:
 ```yml
