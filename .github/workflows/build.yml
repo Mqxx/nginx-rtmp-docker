@@ -30,6 +30,10 @@ jobs:
         with:
           context: .
           file: ./dockerfile
+          build-args: |
+            NGINX_VERSION=1.29.1
+            NGINX_RTMP_VERSION=master
+            
           push: true
           tags: |
             ghcr.io/${{ github.event.repository.name }}/nginx-rtmp:latest
