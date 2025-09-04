@@ -4,11 +4,15 @@ Use with `compose.yml`:
 ```yml
 services:
   nginx-service:
+    container_name: 'nginx-service'
     image: ghcr.io/Mqxx/nginx-rtmp-module-docker:latest
     ports:
-      - 1935:1935
-      - 8081:80
+      - '80:80' # HTTP
+      - '443:443' # HTTPS
+      - '1935:1935' # RTMP
 
     volumes:
-      - ./data/nginx:/etc/nginx
+      - './data/nginx:/etc/nginx'
+
+    restart: unless-stopped
 ```
