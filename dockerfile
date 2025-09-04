@@ -16,7 +16,7 @@ RUN apk add --no-cache \
 
 RUN adduser -D -g 'nginx' nginx
 
-ARG NGINX_VERSION=1.25.5
+ARG NGINX_VERSION=1.29.1
 ARG NGINX_RTMP_VERSION=master
 
 RUN wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O /tmp/nginx.tar.gz \
