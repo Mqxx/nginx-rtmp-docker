@@ -19,11 +19,11 @@ RUN adduser -D -g 'nginx' nginx
 ARG NGINX_VERSION=1.29.1
 ARG NGINX_RTMP_VERSION=master
 
-RUN wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O /tmp/nginx.tar.gz \
-    && tar -zxvf /tmp/nginx.tar.gz -C /tmp \
-    && git clone --branch ${NGINX_RTMP_VERSION} --depth=1 https://github.com/arut/nginx-rtmp-module.git /tmp/nginx-rtmp-module \
-    && cd /tmp/nginx-${NGINX_VERSION} \
-    && ./configure \
+RUN wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O /tmp/nginx.tar.gz; \
+    tar -zxvf /tmp/nginx.tar.gz -C /tmp; \
+    git clone --branch ${NGINX_RTMP_VERSION} --depth=1 https://github.com/arut/nginx-rtmp-module.git /tmp/nginx-rtmp-module; \
+    cd /tmp/nginx-${NGINX_VERSION}; \
+    ./configure \
         --prefix=/etc/nginx \
         --sbin-path=/usr/sbin/nginx \
         --modules-path=/usr/lib/nginx/modules \
@@ -36,13 +36,13 @@ RUN wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O /tmp/nginx.t
         --with-http_stub_status_module \
         --with-stream \
         --with-stream_ssl_module \
-        --add-module=/tmp/nginx-rtmp-module \
-    && make -j$(nproc) \
-    && make install \
-    && rm -rf /tmp/*
+        --add-module=/tmp/nginx-rtmp-module; \
+    make -j$(nproc); \
+    make install; \
+    rm -rf /tmp/*
 
-RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-    && ln -sf /dev/stderr /var/log/nginx/error.log
+RUN ln -sf /dev/stdout /var/log/nginx/access.log; \
+    ln -sf /dev/stderr /var/log/nginx/error.log
 
 EXPOSE 80 443 1935
 
