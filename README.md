@@ -1,5 +1,11 @@
 # Nginx RTMP Docker
+This docker image provides an easy way to run an custom instance of Nginx with the [RTMP module](https://github.com/arut/nginx-rtmp-module) enabled.
 
+## Features
+- All latest features that Nginx provides
+- All latest features that the RTMP module provides
+
+## Usage
 Use with `compose.yml`:
 ```yml
 services:
