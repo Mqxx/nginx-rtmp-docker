@@ -19,7 +19,7 @@ services:
 
     volumes:
       - './data/nginx:/etc/nginx'
-      - './data/stream/hsl:/tmp/stream/hls'
+      - './data/stream/hls:/tmp/stream/hls'
 
     restart: unless-stopped
 ```
@@ -64,7 +64,7 @@ http {
     keepalive_timeout 65;
 
     server {
-        listen 8080;
+        listen 80;
 
         location /hls {
             types {
