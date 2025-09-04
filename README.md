@@ -3,7 +3,7 @@ This docker image provides an easy way to run an custom instance of Nginx with t
 
 ## Features
 - All latest features that Nginx provides
-- All latest features that the RTMP module provides
+- All latest features that the [RTMP module](https://github.com/arut/nginx-rtmp-module) provides
 
 ## Usage
 Use with `compose.yml`:
@@ -21,4 +21,26 @@ services:
       - './data/nginx:/etc/nginx'
 
     restart: unless-stopped
+```
+
+## Example Config
+`nginx.conf` Config:
+```nginx
+rtmp_auto_push on;
+
+rtmp {
+    server {
+        listen 1935;
+        listen [::]:1935 ipv6only=on;    
+
+        application live {
+            live on;
+            record off;
+        }
+    }
+}
+```
+URL:
+```
+rtmp://localhost:1935/live
 ```
