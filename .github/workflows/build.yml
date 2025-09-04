@@ -36,5 +36,5 @@ jobs:
             
           push: true
           tags: |
-            ghcr.io/${{ github.event.repository.name }}/nginx-rtmp:latest
-            ghcr.io/${{ github.event.repository.name }}/nginx-rtmp:${{ github.sha }}
+            ghcr.io/${{ github.repository }}/nginx-rtmp:latest
+            ghcr.io/${{ github.repository }}/nginx-rtmp:${{ github.sha }}
