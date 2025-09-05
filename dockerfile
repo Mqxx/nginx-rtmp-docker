@@ -47,7 +47,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log; \
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-COPY defaults/ /etc/nginx/defaults/
+COPY defaults/ /defaults/
 
 EXPOSE 80 443 1935
 
