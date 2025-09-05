@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/build.yml'
       - 'dockerfile'
+      - 'entrypoint.sh'
     
   workflow_dispatch: {}
 
