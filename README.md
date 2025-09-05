@@ -27,7 +27,7 @@ services:
 ```
 
 ## Example Config
-`nginx.conf` Config:
+`nginx.conf` config:
 ```nginx
 user nginx; # Optional
 worker_processes auto; # Optional
@@ -68,7 +68,7 @@ rtmp {
 }
 
 http {
-  include mime.types;
+  include mime.types; # <-- get from https://github.com/nginx/nginx/blob/master/conf/mime.types
   default_type application/octet-stream;
 
   sendfile on;
