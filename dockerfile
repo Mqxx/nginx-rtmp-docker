@@ -41,14 +41,18 @@ RUN wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O /tmp/nginx.t
     make install; \
     rm -rf /tmp/*
 
-RUN mkdir -p /etc/nginx; \
-    wget https://raw.githubusercontent.com/nginx/nginx/master/conf/mime.types -O /etc/nginx/mime.types; \
-    touch /etc/nginx/nginx.conf
+RUN mkdir -p /etc/nginx/defaults; \
+    wget https://raw.githubusercontent.com/nginx/nginx/master/conf/mime.types -O /etc/nginx/defaults/mime.types; \
+    touch /etc/nginx/defaults/nginx.conf
 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log; \
     ln -sf /dev/stderr /var/log/nginx/error.log
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 80 443 1935
 
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
 
