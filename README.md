@@ -51,9 +51,17 @@ rtmp {
 
       hls on;
       hls_path /tmp/stream/hls; # Path specified in compose.yml
-      hls_fragment 3s;
-      hls_playlist_length 15s;
+      hls_playlist_length 1s;
+
+      hls_fragment 500ms;
+      hls_fragment_naming system;
+      hls_fragment_slicing aligned;
+
+      hls_cleanup on;
       hls_nested on;
+
+      hls_continuous off;
+      hls_sync 100ms;
     }
   }
 }
@@ -93,5 +101,5 @@ rtmp://localhost:1935/live/<streamkey>
 
 Access the stream from a browser, replace `<streamkey>` with the unique identifier that matches the stream provider:
 ```
-http://localhost:80/hls/<streamkey>.m3u8
+http://localhost:80/hls/<streamkey>/index.m3u8
 ```
