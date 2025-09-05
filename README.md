@@ -46,7 +46,7 @@ rtmp {
     listen [::]:1935 ipv6only=on;
 
     application live {
-    #           ^ Needs to match the path for your RTMP stream, specified below 
+    #           ^ Needs to match the path for your RTMP stream URL specified below 
       live on;
       record off;
 
